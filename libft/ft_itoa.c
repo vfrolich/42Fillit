@@ -3,61 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arosset <arosset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vfrolich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/11 15:42:25 by arosset           #+#    #+#             */
-/*   Updated: 2016/11/16 11:40:54 by arosset          ###   ########.fr       */
+/*   Created: 2016/11/15 14:31:44 by vfrolich          #+#    #+#             */
+/*   Updated: 2016/11/17 19:11:14 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_len(int *n, int *min)
+static	int	ft_count_n(int n)
 {
-	int		i;
-	int		len;
+	int count;
 
-	len = 1;
-	i = 1;
-	if (*n < 0)
+	count = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
 	{
-		*min = *min + 1;
-		*n *= -1;
-		len++;
+		n = n * -1;
+		count++;
 	}
-	while ((*n / i) >= 10)
+	while (n >= 1)
 	{
-		i *= 10;
-		len++;
+		n = n / 10;
+		count++;
 	}
-	return (len);
+	return (count);
 }
 
 char		*ft_itoa(int n)
 {
-	char	*str;
-	int		len;
-	int		min;
+	char	*dst;
+	int		count;
 
-	min = 0;
-	if (n == -2147483648)
-	{
-		str = ft_strnew(12);
-		ft_strcpy(str, "-2147483648");
-		str[11] = '\0';
-		return (str);
-	}
-	len = ft_len(&n, &min);
-	str = ft_strnew(len);
-	if (str == NULL)
+	count = ft_count_n(n);
+	dst = (char *)malloc(sizeof(char) * (count + 1));
+	if (dst == NULL)
 		return (NULL);
-	str[len] = '\0';
-	if (min == 1)
-		str[0] = '-';
-	while (len-- > min)
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (n < 0)
 	{
-		str[len] = n % 10 + '0';
-		n /= 10;
+		dst[0] = '-';
+		n = n * -1;
 	}
-	return (str);
+	dst[count] = '\0';
+	if (n == 0)
+		dst[count - 1] = '0';
+	while (n > 0)
+	{
+		dst[count - 1] = (n % 10) + '0';
+		n = n / 10;
+		count--;
+	}
+	return (dst);
 }

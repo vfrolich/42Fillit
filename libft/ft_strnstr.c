@@ -3,37 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arosset <arosset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vfrolich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 14:40:00 by arosset           #+#    #+#             */
-/*   Updated: 2016/11/14 14:24:14 by arosset          ###   ########.fr       */
+/*   Created: 2016/11/10 12:36:02 by vfrolich          #+#    #+#             */
+/*   Updated: 2016/11/17 18:41:09 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+static	char	*ft_check_str(const char *big, const char *little, size_t len)
 {
-	size_t bg;
-	size_t lt;
+	size_t		i;
+	size_t		j;
+	size_t		k;
 
-	lt = 0;
-	bg = 0;
-	if (little[0] == '\0')
-		return ((char *)big);
-	while (big[bg] != '\0' && bg <= len)
+	i = 0;
+	while (big[i] != '\0' && i < len)
 	{
-		if (big[bg] == little[0])
+		if (big[i] == little[0])
 		{
-			while (little[lt] == big[bg + lt] && (bg + lt) < len)
+			j = 0;
+			k = i;
+			while (big[k] == little[j] && big[k] && little[j]
+					&& j < ft_strlen(little) && k < len)
 			{
-				if (lt == ft_strlen(little) - 1)
-					return ((char *)&big[bg]);
-				else
-					lt++;
+				j++;
+				k++;
 			}
+			if (j == ft_strlen(little))
+				return ((char *)&big[i]);
 		}
-		bg++;
+		i++;
 	}
-	return (0);
+	return (NULL);
+}
+
+char			*ft_strnstr(const char *big, const char *little, size_t len)
+{
+	char *ret;
+
+	if (ft_strlen(little) == 0)
+		return ((char *)big);
+	ret = ft_check_str(big, little, len);
+	return (ret);
 }

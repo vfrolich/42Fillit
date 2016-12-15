@@ -3,38 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arosset <arosset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vfrolich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/11 13:04:22 by arosset           #+#    #+#             */
-/*   Updated: 2016/11/14 12:42:32 by arosset          ###   ########.fr       */
+/*   Created: 2016/11/14 19:38:30 by vfrolich          #+#    #+#             */
+/*   Updated: 2016/11/17 19:22:44 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+static	int		ft_check_strim(char const *s, int i)
 {
-	char		*str;
-	size_t		start;
-	size_t		len;
-	size_t		is;
+	while (s[i] != '\0')
+	{
+		if (s[i] != '\t' && s[i] != '\n' && s[i] != 32)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
-	len = 0;
-	is = 0;
-	start = 0;
-	if (s == NULL)
-		return (0);
-	while (s[is] == '\n' || s[is] == ' ' || s[is] == '\t')
-		is++;
-	if (is >= ft_strlen(s))
-		return (ft_strnew(1));
-	start = is;
-	is = ft_strlen(s);
-	while (s[is] == '\n' || s[is] == ' ' || s[is] == '\t' || s[is] == '\0')
-		is--;
-	len = (is - start + 1);
-	str = ft_strsub(s, start, len);
-	if (str == NULL)
-		return (0);
-	return (str);
+static	int		ft_count_c(char const *s)
+{
+	int n;
+	int i;
+
+	i = 0;
+	n = 0;
+	while ((s[i] != '\0') && (s[i] == 32 || s[i] == '\n' || s[i] == '\t'))
+		i++;
+	while (s[i] != '\0' && ft_check_strim(s, i) != 0)
+	{
+		i++;
+		n++;
+	}
+	return (n);
+}
+
+static	char	*ft_realstrim(char const *s, int i, char *dest)
+{
+	int j;
+
+	j = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] != '\t' || s[i] != '\n' || s[i] != 32)
+		{
+			if (ft_check_strim(s, i) == 0)
+			{
+				dest[j] = '\0';
+				return (dest);
+			}
+		}
+		dest[j] = s[i];
+		i++;
+		j++;
+	}
+	dest[j] = '\0';
+	return (dest);
+}
+
+char			*ft_strtrim(char const *s)
+{
+	int		i;
+	char	*dest;
+	int		size;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i] == 32 || s[i] == '\n' || s[i] == '\t')
+		i++;
+	size = ft_count_c(s) + 1;
+	dest = (char *)malloc(sizeof(char) * size);
+	if (dest == NULL)
+		return (NULL);
+	dest = ft_realstrim(s, i, dest);
+	return (dest);
 }

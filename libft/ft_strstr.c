@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arosset <arosset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vfrolich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 12:52:26 by arosset           #+#    #+#             */
-/*   Updated: 2016/11/14 12:37:47 by arosset          ###   ########.fr       */
+/*   Created: 2016/11/08 18:54:51 by vfrolich          #+#    #+#             */
+/*   Updated: 2016/11/17 12:22:24 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 char	*ft_strstr(const char *big, const char *little)
 {
-	size_t bg;
-	size_t lt;
+	int		i;
+	size_t	j;
+	int		k;
 
-	lt = 0;
-	bg = 0;
-	if (!little[lt])
+	i = 0;
+	if (ft_strlen(little) == 0)
 		return ((char *)big);
-	if (!big[bg])
-		return (NULL);
-	while (big[bg] != '\0')
+	while (big[i] != '\0')
 	{
-		if (big[bg] == little[0])
+		if (big[i] == little[0])
 		{
-			while (little[lt] == big[bg + lt])
+			j = 0;
+			k = i;
+			while (big[k] == little[j] && j < ft_strlen(little))
 			{
-				if (lt == ft_strlen(little) - 1)
-					return ((char *)&big[bg]);
-				else
-					lt++;
+				k++;
+				j++;
 			}
+			if (j == ft_strlen(little))
+				return ((char *)&big[i]);
 		}
-		bg++;
+		i++;
 	}
-	return (0);
+	return (NULL);
 }

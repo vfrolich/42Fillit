@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_whitespace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfrolich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/14 21:02:35 by vfrolich          #+#    #+#             */
-/*   Updated: 2016/11/15 14:30:06 by vfrolich         ###   ########.fr       */
+/*   Created: 2016/11/17 12:06:16 by vfrolich          #+#    #+#             */
+/*   Updated: 2016/11/17 12:51:45 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int		ft_count_words(char const *s, char c)
+static int				ft_count_words(char const *s)
 {
 	int i;
 	int nb_w;
@@ -21,10 +21,10 @@ static	int		ft_count_words(char const *s, char c)
 	nb_w = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c)
+		if (s[i] != 32 && s[i] != '\n' && s[i] != '\t')
 		{
 			nb_w++;
-			while (s[i] != c && s[i] != '\0')
+			while (s[i] != 32 && s[i] != '\n' && s[i] != '\t' && s[i] != '\0')
 				i++;
 		}
 		else
@@ -33,12 +33,12 @@ static	int		ft_count_words(char const *s, char c)
 	return (nb_w + 1);
 }
 
-static	int		ft_count_char(char const *s, char c, int i)
+static int				ft_count_char(char const *s, int i)
 {
 	int nb_c;
 
 	nb_c = 0;
-	while (s[i] != c && s[i] != '\0')
+	while (s[i] != 32 && s[i] != '\n' && s[i] != '\t' && s[i] != '\0')
 	{
 		i++;
 		nb_c++;
@@ -46,7 +46,7 @@ static	int		ft_count_char(char const *s, char c, int i)
 	return (nb_c + 1);
 }
 
-static	char	**ft_fill_tab(char const *s, char c, char **dest)
+static char				**ft_fill_tab(char const *s, char **dest)
 {
 	int i;
 	int j;
@@ -56,10 +56,10 @@ static	char	**ft_fill_tab(char const *s, char c, char **dest)
 	j = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c)
+		if (s[i] != 32 && s[i] != '\n' && s[i] != '\t')
 		{
 			k = 0;
-			while (s[i] != c && s[i] != '\0')
+			while (s[i] != 32 && s[i] != '\n' && s[i] != '\t' && s[i] != '\0')
 			{
 				dest[j][k] = s[i];
 				k++;
@@ -75,7 +75,7 @@ static	char	**ft_fill_tab(char const *s, char c, char **dest)
 	return (dest);
 }
 
-static	char	**ft_malloc_tab(char const *s, char c)
+static char				**ft_malloc_tab(char const *s)
 {
 	int		i;
 	int		j;
@@ -83,17 +83,17 @@ static	char	**ft_malloc_tab(char const *s, char c)
 
 	i = 0;
 	j = 0;
-	dest = (char **)malloc(sizeof(char *) * ft_count_words(s, c));
+	dest = (char **)malloc(sizeof(char *) * ft_count_words(s));
 	if (dest == NULL)
 		return (NULL);
 	while (s[i] != '\0')
 	{
-		if (s[i] != c)
+		if (s[i] != 32 && s[i] != '\n' && s[i] != '\t')
 		{
-			dest[j] = (char *)malloc(sizeof(char) * ft_count_char(s, c, i));
+			dest[j] = (char *)malloc(sizeof(char) * ft_count_char(s, i));
 			if (dest[j] == NULL)
 				return (NULL);
-			while (s[i] != c && s[i] != '\0')
+			while (s[i] != 32 && s[i] != '\n' && s[i] != '\t' && s[i] != '\0')
 				i++;
 			j++;
 		}
@@ -103,16 +103,14 @@ static	char	**ft_malloc_tab(char const *s, char c)
 	return (dest);
 }
 
-char			**ft_strsplit(char const *s, char c)
+char					**ft_whitespace(char const *s)
 {
 	char	**dest;
 
-	if (c < 0 || c > 127 || s == NULL)
-		return (NULL);
-	dest = ft_malloc_tab(s, c);
+	dest = ft_malloc_tab(s);
 	if (dest)
 	{
-		dest = ft_fill_tab(s, c, dest);
+		dest = ft_fill_tab(s, dest);
 		return (dest);
 	}
 	return (NULL);

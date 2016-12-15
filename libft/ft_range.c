@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfrolich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/16 16:58:16 by vfrolich          #+#    #+#             */
-/*   Updated: 2016/11/24 13:37:46 by vfrolich         ###   ########.fr       */
+/*   Created: 2016/11/17 11:40:24 by vfrolich          #+#    #+#             */
+/*   Updated: 2016/11/17 11:41:15 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+int		*ft_range(int min, int max)
 {
-	t_list *tmp;
+	int *range;
+	int i;
 
-	if (!alst || !del)
-		return ;
-	if (!(tmp = *alst))
-		return ;
-	while (tmp->next != NULL)
+	i = 0;
+	if (min >= max)
+		return (0);
+	if ((max - min) > 0)
+		range = (int *)malloc(sizeof(int) * (max - min));
+	else
+		range = (int *)malloc(sizeof(int) * ((max - min) * -1));
+	if (range == NULL)
+		return (0);
+	while ((min + i) < max)
 	{
-		del(tmp->content, tmp->content_size);
-		tmp = tmp->next;
+		range[i] = min + i;
+		i++;
 	}
-	del(tmp->content, tmp->content_size);
-	free(tmp);
-	*alst = NULL;
+	return (range);
 }
