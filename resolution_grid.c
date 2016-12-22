@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 12:13:16 by vfrolich          #+#    #+#             */
-/*   Updated: 2016/12/15 19:12:55 by vfrolich         ###   ########.fr       */
+/*   Updated: 2016/12/22 12:46:59 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,26 @@ char	**ft_tetri_to_tab(char **grid, char **tetri, int y, int x)
 	return (grid);
 }
 
-int		ft_check_resolution(char **grid, t_lst *lst, int y, int x)
+int		ft_check_resolution(char **grid, t_lst *lst, int *y, int *x)
 {
 	int len;
 
 	len = ft_strlen(grid[0]);
-	if (ft_check_pos(grid, lst->tetri, y, x) == -1)
+	if (ft_check_pos(grid, lst->tetri, *y, *x) == -1)
 	{
-		if (x < len)
-			return (ft_check_resolution(grid, lst, y, x + 1));
-		if (y < len)
-			return (ft_check_resolution(grid, lst, y + 1, 0));
+		if (*x < len)
+		{
+			*x = *x + 1;
+			return (ft_check_resolution(grid, lst, y, x));
+		}
+		*x = 0;
+		if (*y < len)
+		{
+			*y = *y + 1;
+			return (ft_check_resolution(grid, lst, y, x));
+		}
 	}
-	if (ft_check_pos(grid, lst->tetri, y, x) == 0 && !lst->use)
+	if (ft_check_pos(grid, lst->tetri, *y, *x) == 0 && !lst->use)
 		return (1);
 	else
 		return (0);
@@ -54,7 +61,7 @@ int		ft_check_resolution(char **grid, t_lst *lst, int y, int x)
 
 int		ft_back(char ***grid, t_lst *lst, int y, int x)
 {
-	if (ft_check_resolution(*grid, lst, y, x))
+	if (ft_check_resolution(*grid, lst, &y, &x))
 	{
 		*grid = ft_resolution(*grid, lst, y, x);
 		if (!lst->next || ft_back(grid, lst->next, 0, 0))
@@ -70,7 +77,7 @@ int		ft_back(char ***grid, t_lst *lst, int y, int x)
 				y++;
 			}
 			ft_back(grid, lst, y, x);
-			if (ft_lst_used(ft_lststart(lst)))
+			if (ft_lst_used(lst))
 				return (1);
 		}
 	}

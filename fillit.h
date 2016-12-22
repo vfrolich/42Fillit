@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 10:37:13 by arosset           #+#    #+#             */
-/*   Updated: 2016/12/15 19:06:58 by vfrolich         ###   ########.fr       */
+/*   Updated: 2016/12/22 12:50:26 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ int					*ft_transform(t_lst *lst);
 int					ft_good_place(char **tetri);
 int					ft_check_pos(char **grid, char **tetri, int y, int x);
 void				ft_main_resolution(t_lst *lst, int i);
-int					ft_check_resolution(char **grid, t_lst *lst, int y, int x);
+int					ft_check_resolution(char **grid,\
+					t_lst *lst, int *y, int *x);
 char				**ft_resolution(char **grid, t_lst *lst, int y, int x);
 char				**ft_create_tab(int i);
 char				**ft_tetri_to_tab(char **grid, char **tetri, int y, int x);
 char				**ft_del_tetri(char **grid, t_lst *lst);
 void				ft_print_tab(char **tab);
+int					ft_resolv_pos(char **grid, int *y, int *x);
 #endif

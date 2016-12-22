@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 17:55:28 by vfrolich          #+#    #+#             */
-/*   Updated: 2016/12/15 18:52:49 by vfrolich         ###   ########.fr       */
+/*   Updated: 2016/12/22 12:44:45 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,26 @@ char	**ft_resolution(char **grid, t_lst *lst, int y, int x)
 	grid = ft_tetri_to_tab(grid, lst->tetri, y, x);
 	lst->use = 1;
 	return (grid);
+}
+
+int		ft_resolv_pos(char **grid, int *y, int *x)
+{
+	int len;
+
+	len = (int)ft_strlen(grid[0]);
+	if (*x + 1 <= len)
+		(*x)++;
+	while (*y < len)
+	{
+		if (*x == len)
+			*x = 0;
+		while (*x < len)
+		{
+			if (!ft_isalpha(grid[*y][*y]))
+				return (0);
+			*x = *x + 1;
+		}
+		*y = *y + 1;
+	}
+	return (0);
 }
