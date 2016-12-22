@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 10:37:13 by arosset           #+#    #+#             */
-/*   Updated: 2016/12/22 12:50:26 by vfrolich         ###   ########.fr       */
+/*   Updated: 2016/12/22 13:24:48 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,4 @@ char				**ft_create_tab(int i);
 char				**ft_tetri_to_tab(char **grid, char **tetri, int y, int x);
 char				**ft_del_tetri(char **grid, t_lst *lst);
 void				ft_print_tab(char **tab);
-int					ft_resolv_pos(char **grid, int *y, int *x);
 #endif
