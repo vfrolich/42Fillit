@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 10:37:13 by arosset           #+#    #+#             */
-/*   Updated: 2016/12/22 13:24:48 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/01/19 12:43:43 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int					ft_check_error(char *str);
 int					ft_check_char(char *str);
 int					ft_check_format(char *str);
 int					ft_check_tetri(char *str);
-char				*ft_open_extern(void);
+int					ft_cross_check(char **tetri, int i, int j);
+int					ft_is_square(char **tetri);
+int					ft_check_shape(char **tetri);
 int					ft_count_tetri(char **raw_tetri);
 void				ft_lst_fill(char **raw_tetri, t_lst *lst, char c);
 t_lst				*ft_lstcreate_one();
@@ -47,7 +49,6 @@ t_lst				*ft_lststart(t_lst *lst);
 int					ft_lst_used(t_lst *lst);
 char				**ft_move_top(char **tetri);
 char				**ft_move_left(char **tetri);
-int					ft_tetri_comp(char **tetri, t_lst *ref);
 int					ft_main_check(t_lst *lst);
 int					ft_check_empty(char **tetri);
 int					*ft_transform(t_lst *lst);

@@ -6,7 +6,7 @@
 #    By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/25 13:46:14 by arosset           #+#    #+#              #
-#    Updated: 2016/12/15 18:37:09 by vfrolich         ###   ########.fr        #
+#    Updated: 2017/01/18 11:18:33 by vfrolich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIB				=	$(LIB_PATH)/libft.a
 LIB_LINK		=	-Llibft -lft
 
 SRC				=	main.c check.c ft_check_tetri.c ft_opencompare.c ft_create_lst.c \
-					resolution_grid.c ft_resolution.c backtracking.c
+					resolution_grid.c ft_resolution.c backtracking.c new_check.c
 
 HEADER 			=	fillit.h
 

@@ -6,12 +6,11 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/26 14:38:30 by arosset           #+#    #+#             */
-/*   Updated: 2016/12/15 18:53:12 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/01/19 13:01:18 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 int		ft_check_empty(char **tetri)
 {
@@ -26,12 +25,12 @@ int		ft_check_empty(char **tetri)
 		while (tetri[i][j])
 		{
 			if (tetri[i][j] == '#')
-				return (0);
+				return (1);
 			j++;
 		}
 		i++;
 	}
-	return (-1);
+	return (0);
 }
 
 char	**ft_move_top(char **tetri)
@@ -83,40 +82,14 @@ char	**ft_move_left(char **tetri)
 	return (ft_move_left(tetri));
 }
 
-int		ft_tetri_comp(char **tetri, t_lst *ref)
-{
-	int j;
-
-	if (ft_check_empty(tetri) == -1)
-	{
-		ft_putendl("empty");
-		return (-1);
-	}
-	tetri = ft_move_top(tetri);
-	tetri = ft_move_left(tetri);
-	while (ref)
-	{
-		j = 0;
-		while (j < 4 && ft_strcmp(tetri[j], ref->tetri[j]) == 0)
-			j++;
-		if (j == 4)
-			return (0);
-		ref = ref->next;
-	}
-	return (-1);
-}
-
 int		ft_main_check(t_lst *lst)
 {
-	char	*str;
-	t_lst	*ref;
-
-	str = ft_open_extern();
-	ref = ft_mainlst(str);
 	while (lst)
 	{
-		if (ft_tetri_comp(lst->tetri, ref) == -1)
+		if (!ft_check_shape(lst->tetri) || !ft_check_empty(lst->tetri))
 			return (-1);
+		lst->tetri = ft_move_top(lst->tetri);
+		lst->tetri = ft_move_left(lst->tetri);
 		lst = lst->next;
 	}
 	return (0);

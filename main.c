@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 14:03:27 by arosset           #+#    #+#             */
-/*   Updated: 2016/12/15 19:07:23 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/01/19 13:04:14 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_acquisition(char *argv)
 		ret = read(fd, buf, 700);
 		if (ret != -1 && ft_strlen(buf) <= 545)
 		{
-			buf[ft_strlen(buf)] = '\0';
+			buf[ret] = '\0';
 			str = ft_strnew(ft_strlen(buf));
 			str = ft_strcpy(str, buf);
 			close(fd);
@@ -51,6 +51,16 @@ int		ft_usage(int c)
 		return (0);
 	}
 	return (0);
+}
+
+t_lst	*ft_reset_lst(t_lst *lst)
+{
+	while (lst->prev != NULL)
+	{
+		lst->use = 0;
+		lst = lst->prev;
+	}
+	return (lst);
 }
 
 int		main(int argc, char **argv)
