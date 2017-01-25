@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 10:57:56 by vfrolich          #+#    #+#             */
-/*   Updated: 2017/01/19 13:05:44 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/01/25 18:29:43 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,26 @@ int		ft_is_square(char **tetri)
 int		ft_check_shape(char **tetri)
 {
 	int count;
+	int count_t;
 	int i;
 	int j;
 
 	i = -1;
 	count = 0;
+	count_t = 0;
 	while (tetri[++i])
 	{
 		j = -1;
 		while (tetri[i][++j])
 		{
 			if (tetri[i][j] == '#')
+			{
+				count_t++;
 				count = count + ft_cross_check(tetri, i, j);
+			}
 		}
 	}
-	if (count == 6 || ft_is_square(tetri))
+	if ((count == 6 && count_t == 4) || ft_is_square(tetri))
 		return (1);
 	else
 		return (0);

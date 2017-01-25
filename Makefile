@@ -6,7 +6,7 @@
 #    By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/25 13:46:14 by arosset           #+#    #+#              #
-#    Updated: 2017/01/18 11:18:33 by vfrolich         ###   ########.fr        #
+#    Updated: 2017/01/25 17:03:23 by vfrolich         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ $(LIB):
 
 clean :
 	@rm -f $(OBJS)
-	@rm -rf $(OBJ_DIR)
 	@make -C $(LIB_PATH) clean
 
 fclean : clean
