@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 10:37:13 by arosset           #+#    #+#             */
-/*   Updated: 2017/01/19 12:43:43 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/01/25 16:49:44 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "./../libft/libft.h"
+# include "libft/libft.h"
 
 typedef struct		s_lst
 {

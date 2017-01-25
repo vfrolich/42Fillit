@@ -6,7 +6,7 @@
 /*   By: vfrolich <vfrolich@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 12:13:16 by vfrolich          #+#    #+#             */
-/*   Updated: 2016/12/22 12:46:59 by vfrolich         ###   ########.fr       */
+/*   Updated: 2017/01/25 15:38:19 by vfrolich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		ft_back(char ***grid, t_lst *lst, int y, int x)
 			*grid = ft_del_tetri(*grid, lst);
 			if (x + 1 < (int)ft_strlen(*grid[0]))
 				x++;
-			else
+			else if (y + 1 < (int)ft_strlen(*grid[0]))
 			{
 				x = 0;
 				y++;
